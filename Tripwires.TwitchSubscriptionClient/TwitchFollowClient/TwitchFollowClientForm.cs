@@ -20,7 +20,7 @@ namespace TwitchFollowClient
     {
         private List<Follow> followers = new List<Follow>();
         private const int PageSize = 100;
-        private const string ChannelName = "tripwires";
+        private const string ChannelName = "taniauncensored";
         private DateTime lastCheck;
         public TwitchFollowClientForm()
         {
