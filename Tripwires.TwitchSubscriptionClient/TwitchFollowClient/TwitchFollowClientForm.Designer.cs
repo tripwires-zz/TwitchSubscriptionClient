@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lstFollows = new System.Windows.Forms.ListBox();
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
+            this.tmrUpdate = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // lstFollows
@@ -59,6 +61,13 @@
             this.btnClear.TabIndex = 2;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // tmrUpdate
+            // 
+            this.tmrUpdate.Enabled = true;
+            this.tmrUpdate.Interval = 60000;
+            this.tmrUpdate.Tick += new System.EventHandler(this.tmrUpdate_Tick);
             // 
             // TwitchFollowClientForm
             // 
@@ -79,6 +88,7 @@
         private System.Windows.Forms.ListBox lstFollows;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Timer tmrUpdate;
     }
 }
 

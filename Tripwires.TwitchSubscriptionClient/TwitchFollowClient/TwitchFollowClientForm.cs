@@ -18,14 +18,31 @@ namespace TwitchFollowClient
 {
     public partial class TwitchFollowClientForm : Form
     {
-        private List<Follow> followers=new List<Follow>();
+        private List<Follow> followers = new List<Follow>();
         private const int PageSize = 100;
+        private const string ChannelName = "tripwires";
+        private DateTime lastCheck;
         public TwitchFollowClientForm()
         {
             InitializeComponent();
+            lastCheck = DateTime.UtcNow.AddMinutes(-1);
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
+        {
+            lstFollows.DataSource = null;
+            GetNewFollowers(true);
+        }
+
+
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            lstFollows.DataSource = null;
+            GetNewFollowers(true);
+        }
+
+        private void GetNewFollowers(bool updateLastCheckTime)
         {
             RestClient rClient = new RestClient("https://api.twitch.tv/kraken");
             rClient.AddHandler("application/json", new DynamicJsonDeserializer());
@@ -33,17 +50,29 @@ namespace TwitchFollowClient
             TwitchClientFactory twitchClientFactory = new TwitchClientFactory();
             Func<string, Method, IRestRequest> requestFunc = (url, method) => new RestRequest(url, method);
             ITwitchStaticClient twitchClient = twitchClientFactory.CreateStaticReadonlyClient(rClient, requestFunc);
-            PagingInfo pages  = new PagingInfo();
-            TwitchList<Follow> followList = twitchClient.GetChannelFollowers("testuser1");
+            PagingInfo pages = new PagingInfo();
+            pages.PageSize = TwitchFollowClientForm.PageSize;
+            TwitchList<Follow> followList = twitchClient.GetChannelFollowers(TwitchFollowClientForm.ChannelName);
             long totalSubs = followList.Total;
             long numberOfPages = totalSubs / TwitchFollowClientForm.PageSize;
-            pages.PageSize = 100;
-            for(int i = 0; i < numberOfPages;i++){
-                pages.Page = 0;
-                IEnumerable<Follow> f = twitchClient.GetChannelFollowers("testuser1", pages).List;
-                followers.AddRange(f);
+            IEnumerable<Follow> newFollowers = from follower in followList.List where follower.CreatedAt > lastCheck select follower;
+            if (updateLastCheckTime)
+            {
+                lastCheck = DateTime.UtcNow.AddMinutes(-1);
             }
-            MessageBox.Show("All set and done");
+            List<User> userList = new List<User>();
+            foreach (Follow follower in newFollowers)
+            {
+                userList.Add(follower.User);
+            }
+            lstFollows.DisplayMember = "DisplayName";
+            lstFollows.DataSource = userList;
+        }
+
+        private void tmrUpdate_Tick(object sender, EventArgs e)
+        {
+            lstFollows.DataSource = null;
+            GetNewFollowers(false);
         }
     }
 }
