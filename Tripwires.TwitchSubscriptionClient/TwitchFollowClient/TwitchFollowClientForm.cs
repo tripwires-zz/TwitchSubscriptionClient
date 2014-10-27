@@ -78,6 +78,7 @@ namespace TwitchFollowClient
                 userList.Add(follower.User);
             }
             lstFollows.DisplayMember = "DisplayName";
+            string test = "blah";
             lstFollows.DataSource = userList;
         }
 
