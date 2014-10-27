@@ -65,7 +65,6 @@
             // 
             // tmrUpdate
             // 
-            this.tmrUpdate.Enabled = true;
             this.tmrUpdate.Interval = 60000;
             this.tmrUpdate.Tick += new System.EventHandler(this.tmrUpdate_Tick);
             // 
@@ -79,6 +78,7 @@
             this.Controls.Add(this.lstFollows);
             this.Name = "TwitchFollowClientForm";
             this.Text = "TwitchFollowClient";
+            this.Load += new System.EventHandler(this.TwitchFollowClientForm_Load);
             this.ResumeLayout(false);
 
         }

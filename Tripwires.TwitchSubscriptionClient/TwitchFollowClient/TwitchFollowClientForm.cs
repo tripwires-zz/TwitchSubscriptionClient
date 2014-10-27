@@ -20,18 +20,30 @@ namespace TwitchFollowClient
     {
         private List<Follow> followers = new List<Follow>();
         private const int PageSize = 100;
-        private const string ChannelName = "taniauncensored";
+        private string channelName = Properties.Settings.Default.ChannelName;
+        private int timer = Properties.Settings.Default.Timer;
+
+        public string ChannelName
+        {
+            get { return channelName; }
+        } 
+        public int Timer
+        {
+            get { return timer; }
+        }
         private DateTime lastCheck;
+        
         public TwitchFollowClientForm()
         {
             InitializeComponent();
-            lastCheck = DateTime.UtcNow.AddMinutes(-1);
+            lastCheck = DateTime.UtcNow.AddSeconds(-this.Timer);
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
             lstFollows.DataSource = null;
             GetNewFollowers(true);
+            tmrUpdate.Start();
         }
 
 
@@ -52,13 +64,13 @@ namespace TwitchFollowClient
             ITwitchStaticClient twitchClient = twitchClientFactory.CreateStaticReadonlyClient(rClient, requestFunc);
             PagingInfo pages = new PagingInfo();
             pages.PageSize = TwitchFollowClientForm.PageSize;
-            TwitchList<Follow> followList = twitchClient.GetChannelFollowers(TwitchFollowClientForm.ChannelName);
+            TwitchList<Follow> followList = twitchClient.GetChannelFollowers(this.ChannelName);
             long totalSubs = followList.Total;
             long numberOfPages = totalSubs / TwitchFollowClientForm.PageSize;
             IEnumerable<Follow> newFollowers = from follower in followList.List where follower.CreatedAt > lastCheck select follower;
             if (updateLastCheckTime)
             {
-                lastCheck = DateTime.UtcNow.AddMinutes(-1);
+                lastCheck = DateTime.UtcNow.AddSeconds(-this.Timer);
             }
             List<User> userList = new List<User>();
             foreach (Follow follower in newFollowers)
@@ -73,6 +85,12 @@ namespace TwitchFollowClient
         {
             lstFollows.DataSource = null;
             GetNewFollowers(false);
+        }
+
+        private void TwitchFollowClientForm_Load(object sender, EventArgs e)
+        {
+            this.tmrUpdate.Interval = Properties.Settings.Default.Timer * 1000;
+            this.channelName = Properties.Settings.Default.ChannelName;
         }
     }
 }
