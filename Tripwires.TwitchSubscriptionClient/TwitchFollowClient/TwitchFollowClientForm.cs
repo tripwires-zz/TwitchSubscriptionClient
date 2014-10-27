@@ -58,7 +58,6 @@ namespace TwitchFollowClient
             IEnumerable<Follow> newFollowers = from follower in followList.List where follower.CreatedAt > lastCheck select follower;
             if (updateLastCheckTime)
             {
-                string test = "test";
                 lastCheck = DateTime.UtcNow.AddMinutes(-1);
             }
             List<User> userList = new List<User>();
