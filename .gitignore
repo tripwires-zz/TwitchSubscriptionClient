@@ -3,3 +3,8 @@
 ################################################################################
 
 /Tripwires.TwitchSubscriptionClient/TwitchFollowClient
+/Tripwires.TwitchSubscriptionClient/TwitchFollowClient/bin
+/Tripwires.TwitchSubscriptionClient/TwitchFollowClient/obj
+/Tripwires.TwitchSubscriptionClient/TwitchFollowClient/TwitchFollowClient_TemporaryKey.pfx
+/Tripwires.TwitchSubscriptionClient/TwitchFollowClient/TwitchFollowClient.csproj.user
+*.suo
