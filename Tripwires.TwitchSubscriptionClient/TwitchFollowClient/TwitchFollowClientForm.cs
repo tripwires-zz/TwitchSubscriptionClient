@@ -20,16 +20,14 @@ namespace TwitchFollowClient
     {
         private List<Follow> followers = new List<Follow>();
         private const int PageSize = 100;
-        private string channelName = Properties.Settings.Default.ChannelName;
-        private int timer = Properties.Settings.Default.Timer;
 
         public string ChannelName
         {
-            get { return channelName; }
+            get { return Properties.Settings.Default.ChannelName; }
         } 
         public int Timer
         {
-            get { return timer; }
+            get { return int.Parse(Properties.Settings.Default.Timer.ToString()); }
         }
         private DateTime lastCheck;
         
@@ -90,8 +88,13 @@ namespace TwitchFollowClient
 
         private void TwitchFollowClientForm_Load(object sender, EventArgs e)
         {
-            this.tmrUpdate.Interval = Properties.Settings.Default.Timer * 1000;
-            this.channelName = Properties.Settings.Default.ChannelName;
+            this.tmrUpdate.Interval = this.Timer * 1000;
+        }
+
+        private void settingsToolStripMenuItem1_Click_1(object sender, EventArgs e)
+        {
+            Form settingsForm = new SettingsForm();
+            settingsForm.Show();
         }
     }
 }

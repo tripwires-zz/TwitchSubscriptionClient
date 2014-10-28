@@ -26,9 +26,9 @@ namespace TwitchFollowClient.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("60")]
-        public int Timer {
+        public decimal Timer {
             get {
-                return ((int)(this["Timer"]));
+                return ((decimal)(this["Timer"]));
             }
             set {
                 this["Timer"] = value;
