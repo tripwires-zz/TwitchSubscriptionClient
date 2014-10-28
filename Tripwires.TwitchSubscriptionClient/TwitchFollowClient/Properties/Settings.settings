@@ -8,5 +8,11 @@
     <Setting Name="ChannelName" Type="System.String" Scope="User">
       <Value Profile="(Default)">TaniaUncensored</Value>
     </Setting>
+    <Setting Name="PageSize" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="ApiUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://api.twitch.tv/kraken</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

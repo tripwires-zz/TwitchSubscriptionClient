@@ -79,24 +79,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SettingsForm.cs">
+    <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsForm.Designer.cs">
+    <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TwitchFollowClientForm.cs">
+    <Compile Include="Forms\TwitchFollowClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TwitchFollowClientForm.Designer.cs">
+    <Compile Include="Forms\TwitchFollowClientForm.Designer.cs">
       <DependentUpon>TwitchFollowClientForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="SettingsForm.resx">
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TwitchFollowClientForm.resx">
+    <EmbeddedResource Include="Forms\TwitchFollowClientForm.resx">
       <DependentUpon>TwitchFollowClientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

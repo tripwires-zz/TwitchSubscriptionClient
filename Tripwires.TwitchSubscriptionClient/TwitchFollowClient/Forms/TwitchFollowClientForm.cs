@@ -19,18 +19,22 @@ namespace TwitchFollowClient
     public partial class TwitchFollowClientForm : Form
     {
         private List<Follow> followers = new List<Follow>();
-        private const int PageSize = 100;
+        private DateTime lastCheck;
+        private RestClient rClient;
 
+        public int PageSize
+        {
+            get { return Decimal.ToInt32(Properties.Settings.Default.PageSize); }
+        }
         public string ChannelName
         {
             get { return Properties.Settings.Default.ChannelName; }
-        } 
+        }
         public int Timer
         {
-            get { return int.Parse(Properties.Settings.Default.Timer.ToString()); }
+            get { return Decimal.ToInt32(Properties.Settings.Default.Timer); }
         }
-        private DateTime lastCheck;
-        
+
         public TwitchFollowClientForm()
         {
             InitializeComponent();
@@ -44,8 +48,6 @@ namespace TwitchFollowClient
             tmrUpdate.Start();
         }
 
-
-
         private void btnClear_Click(object sender, EventArgs e)
         {
             lstFollows.DataSource = null;
@@ -54,30 +56,47 @@ namespace TwitchFollowClient
 
         private void GetNewFollowers(bool updateLastCheckTime)
         {
-            RestClient rClient = new RestClient("https://api.twitch.tv/kraken");
-            rClient.AddHandler("application/json", new DynamicJsonDeserializer());
-            rClient.AddDefaultHeader("Accept", "application/vnd.twitchtv.v2+json");
+            initRestClient();
             TwitchClientFactory twitchClientFactory = new TwitchClientFactory();
             Func<string, Method, IRestRequest> requestFunc = (url, method) => new RestRequest(url, method);
-            ITwitchStaticClient twitchClient = twitchClientFactory.CreateStaticReadonlyClient(rClient, requestFunc);
-            PagingInfo pages = new PagingInfo();
-            pages.PageSize = TwitchFollowClientForm.PageSize;
-            TwitchList<Follow> followList = twitchClient.GetChannelFollowers(this.ChannelName);
+            ITwitchStaticClient twitchClient = twitchClientFactory.CreateStaticReadonlyClient(this.rClient, requestFunc);
+            TwitchList<Follow> followList = twitchClient.GetChannelFollowers(this.ChannelName, CreatePageInfo());
             long totalSubs = followList.Total;
-            long numberOfPages = totalSubs / TwitchFollowClientForm.PageSize;
-            IEnumerable<Follow> newFollowers = from follower in followList.List where follower.CreatedAt > lastCheck select follower;
-            if (updateLastCheckTime)
+            long numberOfPages = totalSubs / this.PageSize;
+            if (followList.List != null)
             {
-                lastCheck = DateTime.UtcNow.AddSeconds(-this.Timer);
+                IEnumerable<Follow> newFollowers = from follower in followList.List where follower.CreatedAt > lastCheck select follower;
+                if (updateLastCheckTime)
+                {
+                    lastCheck = DateTime.UtcNow.AddSeconds(-this.Timer);
+                }
+                lstFollows.DisplayMember = "DisplayName";
+                lstFollows.DataSource = CreateGenericUserList(newFollowers);
             }
+        }
+
+        private PagingInfo CreatePageInfo()
+        {
+            PagingInfo pages = new PagingInfo();
+            pages.PageSize = this.PageSize;
+            return pages;
+        }
+
+        private void initRestClient()
+        {
+            this.rClient = new RestClient(Properties.Settings.Default.ApiUrl);
+            this.rClient.AddHandler("application/json", new DynamicJsonDeserializer());
+            this.rClient.AddDefaultHeader("Accept", "application/vnd.twitchtv.v2+json");
+        }
+
+        private List<User> CreateGenericUserList(IEnumerable<Follow> newFollowers)
+        {
             List<User> userList = new List<User>();
             foreach (Follow follower in newFollowers)
             {
                 userList.Add(follower.User);
             }
-            lstFollows.DisplayMember = "DisplayName";
-            string test = "blah";
-            lstFollows.DataSource = userList;
+            return userList;
         }
 
         private void tmrUpdate_Tick(object sender, EventArgs e)
