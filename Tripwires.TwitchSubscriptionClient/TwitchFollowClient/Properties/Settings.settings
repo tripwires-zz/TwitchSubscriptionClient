@@ -14,5 +14,8 @@
     <Setting Name="ApiUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://api.twitch.tv/kraken</Value>
     </Setting>
+    <Setting Name="NotificationSoundFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Sounds\bazinga.mp3</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,8 @@ namespace TwitchFollowClient
         private List<Follow> followers = new List<Follow>();
         private DateTime lastCheck;
         private RestClient rClient;
-
+        private List<User> newList;
+        private List<User> oldList;
         public int PageSize
         {
             get { return Decimal.ToInt32(Properties.Settings.Default.PageSize); }
@@ -62,7 +64,7 @@ namespace TwitchFollowClient
             ITwitchStaticClient twitchClient = twitchClientFactory.CreateStaticReadonlyClient(this.rClient, requestFunc);
             TwitchList<Follow> followList = twitchClient.GetChannelFollowers(this.ChannelName, CreatePageInfo());
             long totalSubs = followList.Total;
-            long numberOfPages = totalSubs / this.PageSize;
+            this.lblTotalFollows.Text = "Total Follows: " + totalSubs;
             if (followList.List != null)
             {
                 IEnumerable<Follow> newFollowers = from follower in followList.List where follower.CreatedAt > lastCheck select follower;
@@ -71,8 +73,28 @@ namespace TwitchFollowClient
                     lastCheck = DateTime.UtcNow.AddSeconds(-this.Timer);
                 }
                 lstFollows.DisplayMember = "DisplayName";
-                lstFollows.DataSource = CreateGenericUserList(newFollowers);
+                if (this.newList != null)
+                {
+                    this.oldList = this.newList;
+                }
+                this.newList = CreateGenericUserList(newFollowers);
+                if (this.oldList != null && this.newList.Count > this.oldList.Count)
+                {
+                    PlayNotificationSound();
+                }
+                lstFollows.DataSource = this.newList;
             }
+        }
+
+        private static void PlayNotificationSound()
+        {
+            string filename = Properties.Settings.Default.NotificationSoundFile;
+            if (!Path.IsPathRooted(Properties.Settings.Default.NotificationSoundFile))
+            {
+                filename = AppDomain.CurrentDomain.BaseDirectory + Properties.Settings.Default.NotificationSoundFile;
+            }
+            MediaPlayer.MediaPlayer mp = new MediaPlayer.MediaPlayer();
+            mp.Open(filename);
         }
 
         private PagingInfo CreatePageInfo()

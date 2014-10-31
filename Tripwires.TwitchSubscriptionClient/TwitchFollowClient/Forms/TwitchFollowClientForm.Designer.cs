@@ -34,11 +34,12 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.tmrUpdate = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblTotalFollows = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,27 +88,6 @@
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem1});
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.settingsToolStripMenuItem.Text = "&Settings";
-            // 
-            // settingsToolStripMenuItem1
-            // 
-            this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
-            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.settingsToolStripMenuItem1.Text = "Settings...";
-            this.settingsToolStripMenuItem1.Click += new System.EventHandler(this.settingsToolStripMenuItem1_Click_1);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "&About";
-            // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -119,15 +99,45 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem1});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "&Settings";
+            // 
+            // settingsToolStripMenuItem1
+            // 
+            this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
+            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(125, 22);
+            this.settingsToolStripMenuItem1.Text = "Settings...";
+            this.settingsToolStripMenuItem1.Click += new System.EventHandler(this.settingsToolStripMenuItem1_Click_1);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "&About";
+            // 
+            // lblTotalFollows
+            // 
+            this.lblTotalFollows.AutoSize = true;
+            this.lblTotalFollows.Location = new System.Drawing.Point(175, 405);
+            this.lblTotalFollows.Name = "lblTotalFollows";
+            this.lblTotalFollows.Size = new System.Drawing.Size(0, 13);
+            this.lblTotalFollows.TabIndex = 4;
             // 
             // TwitchFollowClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 442);
+            this.Controls.Add(this.lblTotalFollows);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.lstFollows);
@@ -155,6 +165,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Label lblTotalFollows;
     }
 }
 

@@ -12,6 +12,9 @@ using Twitch.Net.Factories;
 using Twitch.Net.Helpers;
 using Twitch.Net.Interfaces;
 using Twitch.Net.Model;
+using MediaPlayer;
+using System.IO;
+using System.Media;
 
 namespace TwitchFollowClient
 {
@@ -71,7 +74,10 @@ namespace TwitchFollowClient
         private void btnRestore_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Reset();
-            this.FindForm().Close();
+            this.txtChannelName.Update();
+            this.nmrTimer.Update();
+            this.nmrFollowsPerTick.Update();
+            this.txtNotificationSound.Update();
         }
 
         private void txtChannelName_TextChanged(object sender, EventArgs e)
@@ -84,6 +90,17 @@ namespace TwitchFollowClient
         {
             this.channelNameValueEmpty = string.IsNullOrEmpty(txtChannelName.Text);
             this.btnOk.Enabled = !this.channelNameValueEmpty;
+        }
+
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            ntfSoundFileDialog.ShowDialog();
+        }
+
+        private void ntfSoundFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            Properties.Settings.Default.NotificationSoundFile = ntfSoundFileDialog.FileName;
         }
 
     }

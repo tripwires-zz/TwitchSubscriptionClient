@@ -70,5 +70,17 @@ namespace TwitchFollowClient.Properties {
                 this["ApiUrl"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Sounds\\bazinga.mp3")]
+        public string NotificationSoundFile {
+            get {
+                return ((string)(this["NotificationSoundFile"]));
+            }
+            set {
+                this["NotificationSoundFile"] = value;
+            }
+        }
     }
 }

@@ -34,17 +34,21 @@
             this.lblTimer = new System.Windows.Forms.Label();
             this.btnRestore = new System.Windows.Forms.Button();
             this.lblNumberPerTicks = new System.Windows.Forms.Label();
+            this.lblNotificationSound = new System.Windows.Forms.Label();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.txtNotificationSound = new System.Windows.Forms.TextBox();
+            this.ntfSoundFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.nmrFollowsPerTick = new System.Windows.Forms.NumericUpDown();
             this.nmrTimer = new System.Windows.Forms.NumericUpDown();
             this.txtChannelName = new System.Windows.Forms.TextBox();
-            this.nmrFollowsPerTick = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.nmrTimer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmrFollowsPerTick)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmrTimer)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOk
             // 
             this.btnOk.Enabled = false;
-            this.btnOk.Location = new System.Drawing.Point(355, 94);
+            this.btnOk.Location = new System.Drawing.Point(350, 135);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 0;
@@ -54,7 +58,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(274, 94);
+            this.btnCancel.Location = new System.Drawing.Point(269, 135);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -74,7 +78,7 @@
             // lblTimer
             // 
             this.lblTimer.AutoSize = true;
-            this.lblTimer.Location = new System.Drawing.Point(13, 40);
+            this.lblTimer.Location = new System.Drawing.Point(13, 39);
             this.lblTimer.Name = "lblTimer";
             this.lblTimer.Size = new System.Drawing.Size(98, 13);
             this.lblTimer.TabIndex = 4;
@@ -82,7 +86,7 @@
             // 
             // btnRestore
             // 
-            this.btnRestore.Location = new System.Drawing.Point(167, 93);
+            this.btnRestore.Location = new System.Drawing.Point(162, 135);
             this.btnRestore.Name = "btnRestore";
             this.btnRestore.Size = new System.Drawing.Size(101, 23);
             this.btnRestore.TabIndex = 6;
@@ -93,11 +97,57 @@
             // lblNumberPerTicks
             // 
             this.lblNumberPerTicks.AutoSize = true;
-            this.lblNumberPerTicks.Location = new System.Drawing.Point(13, 62);
+            this.lblNumberPerTicks.Location = new System.Drawing.Point(13, 66);
             this.lblNumberPerTicks.Name = "lblNumberPerTicks";
             this.lblNumberPerTicks.Size = new System.Drawing.Size(158, 13);
             this.lblNumberPerTicks.TabIndex = 7;
             this.lblNumberPerTicks.Text = "Max. Number of Follows per tick";
+            // 
+            // lblNotificationSound
+            // 
+            this.lblNotificationSound.AutoSize = true;
+            this.lblNotificationSound.Location = new System.Drawing.Point(13, 99);
+            this.lblNotificationSound.Name = "lblNotificationSound";
+            this.lblNotificationSound.Size = new System.Drawing.Size(94, 13);
+            this.lblNotificationSound.TabIndex = 9;
+            this.lblNotificationSound.Text = "Notification Sound";
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Location = new System.Drawing.Point(394, 96);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(31, 23);
+            this.btnBrowse.TabIndex = 11;
+            this.btnBrowse.Text = "...";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
+            // txtNotificationSound
+            // 
+            this.txtNotificationSound.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TwitchFollowClient.Properties.Settings.Default, "NotificationSoundFile", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtNotificationSound.Location = new System.Drawing.Point(183, 96);
+            this.txtNotificationSound.Name = "txtNotificationSound";
+            this.txtNotificationSound.Size = new System.Drawing.Size(205, 20);
+            this.txtNotificationSound.TabIndex = 10;
+            // 
+            // ntfSoundFileDialog
+            // 
+            this.ntfSoundFileDialog.FileName = global::TwitchFollowClient.Properties.Settings.Default.NotificationSoundFile;
+            this.ntfSoundFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.ntfSoundFileDialog_FileOk);
+            // 
+            // nmrFollowsPerTick
+            // 
+            this.nmrFollowsPerTick.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TwitchFollowClient.Properties.Settings.Default, "PageSize", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.nmrFollowsPerTick.Location = new System.Drawing.Point(303, 64);
+            this.nmrFollowsPerTick.Minimum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.nmrFollowsPerTick.Name = "nmrFollowsPerTick";
+            this.nmrFollowsPerTick.Size = new System.Drawing.Size(120, 20);
+            this.nmrFollowsPerTick.TabIndex = 8;
+            this.nmrFollowsPerTick.Value = global::TwitchFollowClient.Properties.Settings.Default.PageSize;
             // 
             // nmrTimer
             // 
@@ -128,25 +178,14 @@
             this.txtChannelName.Text = global::TwitchFollowClient.Properties.Settings.Default.ChannelName;
             this.txtChannelName.TextChanged += new System.EventHandler(this.txtChannelName_TextChanged);
             // 
-            // nmrFollowsPerTick
-            // 
-            this.nmrFollowsPerTick.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TwitchFollowClient.Properties.Settings.Default, "PageSize", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.nmrFollowsPerTick.Location = new System.Drawing.Point(303, 64);
-            this.nmrFollowsPerTick.Minimum = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.nmrFollowsPerTick.Name = "nmrFollowsPerTick";
-            this.nmrFollowsPerTick.Size = new System.Drawing.Size(120, 20);
-            this.nmrFollowsPerTick.TabIndex = 8;
-            this.nmrFollowsPerTick.Value = global::TwitchFollowClient.Properties.Settings.Default.PageSize;
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(437, 128);
+            this.ClientSize = new System.Drawing.Size(437, 170);
+            this.Controls.Add(this.btnBrowse);
+            this.Controls.Add(this.txtNotificationSound);
+            this.Controls.Add(this.lblNotificationSound);
             this.Controls.Add(this.nmrFollowsPerTick);
             this.Controls.Add(this.lblNumberPerTicks);
             this.Controls.Add(this.btnRestore);
@@ -159,8 +198,8 @@
             this.Name = "SettingsForm";
             this.Text = "Settings";
             this.Shown += new System.EventHandler(this.SettingsForm_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.nmrTimer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmrFollowsPerTick)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmrTimer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,5 +216,9 @@
         private System.Windows.Forms.Button btnRestore;
         private System.Windows.Forms.Label lblNumberPerTicks;
         private System.Windows.Forms.NumericUpDown nmrFollowsPerTick;
+        private System.Windows.Forms.Label lblNotificationSound;
+        private System.Windows.Forms.TextBox txtNotificationSound;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.OpenFileDialog ntfSoundFileDialog;
     }
 }
