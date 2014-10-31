@@ -103,5 +103,12 @@ namespace TwitchFollowClient
             Properties.Settings.Default.NotificationSoundFile = ntfSoundFileDialog.FileName;
         }
 
+        private void chkMuted_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
     }
 }
