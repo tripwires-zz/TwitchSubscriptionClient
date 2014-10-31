@@ -81,7 +81,9 @@ namespace TwitchFollowClient
                 this.newList = CreateGenericUserList(newFollowers);
                 if (this.oldList != null && this.newList.Count > this.oldList.Count)
                 {
-                    PlayNotificationSound();
+                    if (!Properties.Settings.Default.Muted) { 
+                        PlayNotificationSound();
+                    }
                 }
                 lstFollows.DataSource = this.newList;
             }

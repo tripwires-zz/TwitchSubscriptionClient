@@ -37,10 +37,11 @@
             this.lblNotificationSound = new System.Windows.Forms.Label();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtNotificationSound = new System.Windows.Forms.TextBox();
-            this.ntfSoundFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.nmrFollowsPerTick = new System.Windows.Forms.NumericUpDown();
             this.nmrTimer = new System.Windows.Forms.NumericUpDown();
             this.txtChannelName = new System.Windows.Forms.TextBox();
+            this.ntfSoundFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.chkMuted = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nmrFollowsPerTick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmrTimer)).BeginInit();
             this.SuspendLayout();
@@ -130,11 +131,6 @@
             this.txtNotificationSound.Size = new System.Drawing.Size(205, 20);
             this.txtNotificationSound.TabIndex = 10;
             // 
-            // ntfSoundFileDialog
-            // 
-            this.ntfSoundFileDialog.FileName = global::TwitchFollowClient.Properties.Settings.Default.NotificationSoundFile;
-            this.ntfSoundFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.ntfSoundFileDialog_FileOk);
-            // 
             // nmrFollowsPerTick
             // 
             this.nmrFollowsPerTick.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TwitchFollowClient.Properties.Settings.Default, "PageSize", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -178,11 +174,30 @@
             this.txtChannelName.Text = global::TwitchFollowClient.Properties.Settings.Default.ChannelName;
             this.txtChannelName.TextChanged += new System.EventHandler(this.txtChannelName_TextChanged);
             // 
+            // ntfSoundFileDialog
+            // 
+            this.ntfSoundFileDialog.FileName = global::TwitchFollowClient.Properties.Settings.Default.NotificationSoundFile;
+            this.ntfSoundFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.ntfSoundFileDialog_FileOk);
+            // 
+            // chkMuted
+            // 
+            this.chkMuted.AutoSize = true;
+            this.chkMuted.Checked = global::TwitchFollowClient.Properties.Settings.Default.Muted;
+            this.chkMuted.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TwitchFollowClient.Properties.Settings.Default, "Muted", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkMuted.Location = new System.Drawing.Point(13, 135);
+            this.chkMuted.Name = "chkMuted";
+            this.chkMuted.Size = new System.Drawing.Size(56, 17);
+            this.chkMuted.TabIndex = 12;
+            this.chkMuted.Text = "Muted";
+            this.chkMuted.UseVisualStyleBackColor = true;
+            this.chkMuted.CheckedChanged += new System.EventHandler(this.chkMuted_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(437, 170);
+            this.Controls.Add(this.chkMuted);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtNotificationSound);
             this.Controls.Add(this.lblNotificationSound);
@@ -222,5 +237,6 @@
         private System.Windows.Forms.TextBox txtNotificationSound;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.OpenFileDialog ntfSoundFileDialog;
+        private System.Windows.Forms.CheckBox chkMuted;
     }
 }

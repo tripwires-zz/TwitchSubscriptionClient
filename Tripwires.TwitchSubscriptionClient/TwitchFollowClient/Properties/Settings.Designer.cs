@@ -82,5 +82,17 @@ namespace TwitchFollowClient.Properties {
                 this["NotificationSoundFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Muted {
+            get {
+                return ((bool)(this["Muted"]));
+            }
+            set {
+                this["Muted"] = value;
+            }
+        }
     }
 }
