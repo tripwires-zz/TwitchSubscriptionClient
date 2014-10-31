@@ -43,6 +43,7 @@
             // 
             // btnOk
             // 
+            this.btnOk.Enabled = false;
             this.btnOk.Location = new System.Drawing.Point(355, 94);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
@@ -125,6 +126,7 @@
             this.txtChannelName.Size = new System.Drawing.Size(242, 20);
             this.txtChannelName.TabIndex = 3;
             this.txtChannelName.Text = global::TwitchFollowClient.Properties.Settings.Default.ChannelName;
+            this.txtChannelName.TextChanged += new System.EventHandler(this.txtChannelName_TextChanged);
             // 
             // nmrFollowsPerTick
             // 
@@ -156,6 +158,7 @@
             this.Controls.Add(this.btnOk);
             this.Name = "SettingsForm";
             this.Text = "Settings";
+            this.Shown += new System.EventHandler(this.SettingsForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.nmrTimer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmrFollowsPerTick)).EndInit();
             this.ResumeLayout(false);

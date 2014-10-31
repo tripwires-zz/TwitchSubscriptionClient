@@ -115,5 +115,10 @@ namespace TwitchFollowClient
             Form settingsForm = new SettingsForm();
             settingsForm.Show();
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
