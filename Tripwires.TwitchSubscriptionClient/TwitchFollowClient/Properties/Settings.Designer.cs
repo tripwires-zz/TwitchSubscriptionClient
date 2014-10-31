@@ -37,7 +37,7 @@ namespace TwitchFollowClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("TaniaUncensored")]
+        [global::System.Configuration.DefaultSettingValueAttribute("taniauncensored")]
         public string ChannelName {
             get {
                 return ((string)(this["ChannelName"]));

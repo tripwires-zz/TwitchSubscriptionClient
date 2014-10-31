@@ -14,6 +14,7 @@ using Twitch.Net.Factories;
 using Twitch.Net.Helpers;
 using Twitch.Net.Interfaces;
 using Twitch.Net.Model;
+using TwitchFollowClient.Forms;
 
 namespace TwitchFollowClient
 {
@@ -141,6 +142,12 @@ namespace TwitchFollowClient
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form aboutForm = new AboutForm();
+            aboutForm.Show();
         }
     }
 }
