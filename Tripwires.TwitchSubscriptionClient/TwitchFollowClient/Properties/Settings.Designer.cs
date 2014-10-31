@@ -26,9 +26,9 @@ namespace TwitchFollowClient.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("60")]
-        public int Timer {
+        public decimal Timer {
             get {
-                return ((int)(this["Timer"]));
+                return ((decimal)(this["Timer"]));
             }
             set {
                 this["Timer"] = value;
@@ -44,6 +44,42 @@ namespace TwitchFollowClient.Properties {
             }
             set {
                 this["ChannelName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public decimal PageSize {
+            get {
+                return ((decimal)(this["PageSize"]));
+            }
+            set {
+                this["PageSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.twitch.tv/kraken")]
+        public string ApiUrl {
+            get {
+                return ((string)(this["ApiUrl"]));
+            }
+            set {
+                this["ApiUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Sounds\\bazinga.mp3")]
+        public string NotificationSoundFile {
+            get {
+                return ((string)(this["NotificationSoundFile"]));
+            }
+            set {
+                this["NotificationSoundFile"] = value;
             }
         }
     }
