@@ -82,5 +82,65 @@ namespace TwitchFollowClient.Properties {
                 this["NotificationSoundFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("irc.twitch.tv")]
+        public string IrcServerName {
+            get {
+                return ((string)(this["IrcServerName"]));
+            }
+            set {
+                this["IrcServerName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6667")]
+        public string IrcServerPort {
+            get {
+                return ((string)(this["IrcServerPort"]));
+            }
+            set {
+                this["IrcServerPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("tmi")]
+        public string IrcServerGroup {
+            get {
+                return ((string)(this["IrcServerGroup"]));
+            }
+            set {
+                this["IrcServerGroup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("tripwires")]
+        public string IrcNickame {
+            get {
+                return ((string)(this["IrcNickame"]));
+            }
+            set {
+                this["IrcNickame"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2ckqn0neu7wseh6rrjcgiottus088fd")]
+        public string IrcOauthKey {
+            get {
+                return ((string)(this["IrcOauthKey"]));
+            }
+            set {
+                this["IrcOauthKey"] = value;
+            }
+        }
     }
 }

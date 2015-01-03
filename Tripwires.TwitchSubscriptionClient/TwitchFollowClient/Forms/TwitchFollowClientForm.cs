@@ -60,42 +60,73 @@ namespace TwitchFollowClient
         private void GetNewFollowers(bool updateLastCheckTime)
         {
             initRestClient();
-            TwitchClientFactory twitchClientFactory = new TwitchClientFactory();
-            Func<string, Method, IRestRequest> requestFunc = (url, method) => new RestRequest(url, method);
-            ITwitchStaticClient twitchClient = twitchClientFactory.CreateStaticReadonlyClient(this.rClient, requestFunc);
-            TwitchList<Follow> followList = twitchClient.GetChannelFollowers(this.ChannelName, CreatePageInfo());
-            long totalSubs = followList.Total;
-            this.lblTotalFollows.Text = "Total Follows: " + totalSubs;
-            if (followList.List != null)
+            TwitchClientFactory twitchClientFactory = null;
+            try
             {
-                IEnumerable<Follow> newFollowers = from follower in followList.List where follower.CreatedAt > lastCheck select follower;
-                if (updateLastCheckTime)
+                twitchClientFactory = new TwitchClientFactory();
+                Func<string, Method, IRestRequest> requestFunc = (url, method) => new RestRequest(url, method);
+                ITwitchStaticClient twitchClient = null;
+                try
                 {
-                    lastCheck = DateTime.UtcNow.AddSeconds(-this.Timer);
+                    twitchClient = twitchClientFactory.CreateStaticReadonlyClient(this.rClient, requestFunc);
+                    TwitchList<Follow> followList = null;
+                    try
+                    {
+                        followList = twitchClient.GetChannelFollowers(this.ChannelName, CreatePageInfo());
+                        long totalSubs = followList.Total;
+                        this.lblTotalFollows.Text = "Total Follows: " + totalSubs;
+                        if (followList.List != null)
+                        {
+                            IEnumerable<Follow> newFollowers = from follower in followList.List where follower.CreatedAt > lastCheck select follower;
+                            if (updateLastCheckTime)
+                            {
+                                lastCheck = DateTime.UtcNow.AddSeconds(-this.Timer);
+                            }
+                            lstFollows.DisplayMember = "DisplayName";
+                            if (this.newList != null)
+                            {
+                                this.oldList = this.newList;
+                            }
+                            this.newList = CreateGenericUserList(newFollowers);
+                            if (this.oldList != null && this.newList.Count > this.oldList.Count)
+                            {
+                                PlayNotificationSound();
+                            }
+                            lstFollows.DataSource = this.newList;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        followList = twitchClient.GetChannelFollowers(this.ChannelName, CreatePageInfo());
+                    }
                 }
-                lstFollows.DisplayMember = "DisplayName";
-                if (this.newList != null)
+                catch (Exception ex)
                 {
-                    this.oldList = this.newList;
+                    twitchClient = twitchClientFactory.CreateStaticReadonlyClient(this.rClient, requestFunc);
                 }
-                this.newList = CreateGenericUserList(newFollowers);
-                if (this.oldList != null && this.newList.Count > this.oldList.Count)
-                {
-                    PlayNotificationSound();
-                }
-                lstFollows.DataSource = this.newList;
+            }
+            catch (Exception ex)
+            {
+                twitchClientFactory = new TwitchClientFactory();
             }
         }
 
         private static void PlayNotificationSound()
         {
             string filename = Properties.Settings.Default.NotificationSoundFile;
-            if (!Path.IsPathRooted(Properties.Settings.Default.NotificationSoundFile))
+            try
             {
-                filename = AppDomain.CurrentDomain.BaseDirectory + Properties.Settings.Default.NotificationSoundFile;
+                if (!Path.IsPathRooted(Properties.Settings.Default.NotificationSoundFile))
+                {
+                    filename = AppDomain.CurrentDomain.BaseDirectory + Properties.Settings.Default.NotificationSoundFile;
+                }
+                MediaPlayer.MediaPlayer mp = new MediaPlayer.MediaPlayer();
+                mp.Open(filename);
             }
-            MediaPlayer.MediaPlayer mp = new MediaPlayer.MediaPlayer();
-            mp.Open(filename);
+            catch (Exception ex)
+            {
+                MessageBox.Show("failed to play playback sound");
+            }
         }
 
         private PagingInfo CreatePageInfo()

@@ -134,6 +134,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\ircdotnet\IrcDotNet\IrcDotNet.csproj">
+      <Project>{47d551da-96ed-4ef6-96bf-4832059d4700}</Project>
+      <Name>IrcDotNet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\twitch.net\Twitch.Net\Twitch.Net.csproj">
       <Project>{193b6738-4b03-4551-a8cb-f882af480ea0}</Project>
       <Name>Twitch.Net</Name>

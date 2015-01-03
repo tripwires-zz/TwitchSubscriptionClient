@@ -17,5 +17,20 @@
     <Setting Name="NotificationSoundFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">Sounds\bazinga.mp3</Value>
     </Setting>
+    <Setting Name="IrcServerName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">irc.twitch.tv</Value>
+    </Setting>
+    <Setting Name="IrcServerPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">6667</Value>
+    </Setting>
+    <Setting Name="IrcServerGroup" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tmi</Value>
+    </Setting>
+    <Setting Name="IrcNickame" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tripwires</Value>
+    </Setting>
+    <Setting Name="IrcOauthKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2ckqn0neu7wseh6rrjcgiottus088fd</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
